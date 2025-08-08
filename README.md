@@ -9,6 +9,12 @@ O preprocessador PHP lê arquivos `.cssw` e os converte para `.css`, processando
 - **Mixins** com `::mixin`
 - **CSS tradicional** mantido intacto
 
+## Instalação
+baixe o arquivo release mais recente
+unstale como estensão no vscode
+baixe o arquivo estilo.php
+e coloque da pasta raiz do seu projeto
+
 ## ⚡ **Sintaxe CSSW**
 
 ### 🔧 **CSS Tradicional (Mantido)**
