@@ -1,0 +1,58 @@
+{
+  "name": "cssw-language-support",
+  "displayName": "CSSW Language Support",
+  "description": "Suporte para linguagem CSSW com sintaxe personalizada",
+  "version": "1.0.0",
+  "publisher": "Wallan-Ramos",
+  "icon": "logo.png",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "cssw",
+    "css",
+    "stylesheet",
+    "syntax highlighting"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "cssw",
+        "aliases": [
+          "CSSW",
+          "cssw"
+        ],
+        "extensions": [
+          ".cssw"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./logo2.png",
+          "dark": "./logo2.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "cssw",
+        "scopeName": "source.cssw",
+        "path": "./syntaxes/cssw.tmLanguage.json"
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "cssw-icons",
+        "label": "CSSW Icons",
+        "path": "./icons/cssw-icon-theme.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cssw-dev/cssw-vscode-extension.git"
+  },
+  "license": "MIT"
+}

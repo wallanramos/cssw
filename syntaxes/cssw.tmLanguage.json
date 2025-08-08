@@ -1,0 +1,383 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "CSSW",
+  "scopeName": "source.cssw",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#cssw-mixins"
+    },
+    {
+      "include": "#cssw-variables"
+    },
+    {
+      "include": "#css-at-rules"
+    },
+    {
+      "include": "#css-rule-sets"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#colors"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comentarios",
+          "begin": "//",
+          "end": "\\n",
+          "beginCaptures": {
+            "0": {
+              "name": "comentado"
+            }
+          }
+        },
+        {
+          "name": "comentarios",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "beginCaptures": {
+            "0": {
+              "name": "comentado"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "comentado"
+            }
+          }
+        }
+      ]
+    },
+    "cssw-mixins": {
+      "patterns": [
+        {
+          "name": "mixin.declaration",
+          "match": "^\\s*(::)([a-zA-Z_][a-zA-Z0-9_-]*)\\s*\\{",
+          "captures": {
+            "1": { "name": "punctuation.definition.mixin.cssw" },
+            "2": { "name": "entity.name.mixin.cssw" }
+          }
+        },
+        {
+          "name": "mixin.standalone",
+          "match": "^\\s*(::)([a-zA-Z_][a-zA-Z0-9_-]*)\\s*$",
+          "captures": {
+            "1": { "name": "punctuation.definition.mixin.cssw" },
+            "2": { "name": "entity.name.mixin.cssw" }
+          }
+        }
+      ]
+    },
+    "cssw-variables": {
+      "patterns": [
+        {
+          "name": "variaveis", 
+          "match": "\\$[a-zA-Z_][a-zA-Z0-9_-]*(?=\\s*:)"
+        },
+        {
+          "name": "variaveis",
+          "match": "(?<=:)\\s*(\\$)([a-zA-Z_][a-zA-Z0-9_-]*)(?=\\s*[;}]|\\s+[^;}]+)"
+        },
+        {
+          "name": "variaveis",
+          "match": "(?<=\\s)(\\$)([a-zA-Z_][a-zA-Z0-9_-]*)(?=\\s|[;}])"
+        }
+      ]
+    },
+    "css-rule-sets": {
+      "patterns": [
+        {
+          "name": "meta.rule-set.css.cssw",
+          "begin": "([^{@/]+)(?=\\s*\\{)",
+          "end": "\\}",
+          "beginCaptures": {
+            "1": {
+              "patterns": [
+                {
+                  "include": "#css-selectors"
+                }
+              ]
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.section.property-list.end.css.cssw"
+            }
+          },
+          "patterns": [
+            {
+              "name": "punctuation.section.property-list.begin.css.cssw",
+              "match": "\\{"
+            },
+            {
+              "include": "#cssw-mixins"
+            },
+            {
+              "include": "#css-properties"
+            },
+            {
+              "include": "#comments"
+            }
+          ]
+        }
+      ]
+    },
+    "css-selectors": {
+      "patterns": [
+        {
+          "name": "entity.name.tag.css.cssw",
+          "match": "\\b(a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdi|bdo|big|blockquote|body|br|button|canvas|caption|center|cite|code|col|colgroup|data|datalist|dd|del|details|dfn|dialog|dir|div|dl|dt|em|embed|fieldset|figcaption|figure|font|footer|form|frame|frameset|h[1-6]|head|header|hgroup|hr|html|i|iframe|img|input|ins|kbd|label|legend|li|link|main|map|mark|menu|menuitem|meta|meter|nav|noframes|noscript|object|ol|optgroup|option|output|p|param|picture|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|small|source|span|strike|strong|style|sub|summary|sup|svg|table|tbody|td|template|textarea|tfoot|th|thead|time|title|tr|track|tt|u|ul|var|video|wbr)\\b"
+        },
+        {
+          "name": "entity.other.attribute-name.class.css.cssw",
+          "match": "\\.[a-zA-Z_-][a-zA-Z0-9_-]*"
+        },
+        {
+          "name": "entity.other.attribute-name.id.css.cssw",
+          "match": "#[a-zA-Z_-][a-zA-Z0-9_-]*"
+        },
+        {
+          "name": "entity.other.attribute-name.pseudo-class.css.cssw",
+          "match": ":[a-zA-Z_-][a-zA-Z0-9_-]*(?:\\([^)]*\\))?"
+        },
+        {
+          "name": "entity.other.attribute-name.pseudo-element.css.cssw",
+          "match": "::[a-zA-Z_-][a-zA-Z0-9_-]*"
+        },
+        {
+          "name": "entity.other.attribute-name.attribute.css.cssw",
+          "match": "\\[[^\\]]*\\]"
+        },
+        {
+          "name": "keyword.operator.combinator.css.cssw",
+          "match": "[>+~]"
+        },
+        {
+          "name": "punctuation.separator.css.cssw",
+          "match": ","
+        }
+      ]
+    },
+    "css-properties": {
+      "patterns": [
+        {
+          "name": "meta.property.css.cssw",
+          "begin": "(?<!-)\\b([a-zA-Z-]+)\\s*(:)\\s*",
+          "end": "(;)|(?=\\})",
+          "beginCaptures": {
+            "1": {
+              "name": "support.type.property-name.css.cssw"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.css.cssw"
+            }
+          },
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.terminator.rule.css.cssw"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#cssw-variables"
+            },
+            {
+              "include": "#css-property-values"
+            }
+          ]
+        }
+      ]
+    },
+    "css-property-values": {
+      "patterns": [
+        {
+          "include": "#colors"
+        },
+        {
+          "include": "#numbers"
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "name": "support.constant.property-value.css.cssw",
+          "match": "\\b(none|auto|inherit|initial|unset|normal|bold|italic|block|inline|inline-block|flex|grid|table|table-cell|absolute|relative|fixed|sticky|static|left|right|center|top|bottom|middle|baseline|transparent|currentColor|hidden|visible|scroll|contain|cover|repeat|no-repeat|ease|linear|ease-in|ease-out|ease-in-out)\\b"
+        },
+        {
+          "name": "support.function.css.cssw",
+          "begin": "\\b(rgb|rgba|hsl|hsla|url|calc|var|linear-gradient|radial-gradient|rotate|scale|translate|translateX|translateY|translateZ|matrix|perspective)\\s*\\(",
+          "end": "\\)",
+          "beginCaptures": {
+            "1": {
+              "name": "support.function.name.css.cssw"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#cssw-variables"
+            },
+            {
+              "include": "#numbers"
+            },
+            {
+              "include": "#colors"
+            },
+            {
+              "include": "#strings"
+            },
+            {
+              "name": "punctuation.separator.css.cssw",
+              "match": ","
+            }
+          ]
+        },
+        {
+          "name": "keyword.other.important.css.cssw",
+          "match": "!important\\b"
+        }
+      ]
+    },
+    "css-at-rules": {
+      "patterns": [
+        {
+          "name": "meta.at-rule.media.css.cssw",
+          "begin": "(@media)\\b",
+          "end": "(?=\\{)|;",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.at-rule.media.css.cssw"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#cssw-variables"
+            },
+            {
+              "include": "#media-queries"
+            }
+          ]
+        },
+        {
+          "name": "meta.at-rule.keyframes.css.cssw",
+          "begin": "(@keyframes)\\s+([a-zA-Z_-][a-zA-Z0-9_-]*)",
+          "end": "(?=\\{)",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.control.at-rule.keyframes.css.cssw"
+            },
+            "2": {
+              "name": "entity.name.function.css.cssw"
+            }
+          }
+        },
+        {
+          "name": "keyword.control.at-rule.css.cssw",
+          "match": "@(import|charset|namespace|font-face|page|supports)\\b"
+        }
+      ]
+    },
+    "media-queries": {
+      "patterns": [
+        {
+          "name": "support.constant.media.css.cssw",
+          "match": "\\b(all|screen|print|speech|and|not|only)\\b"
+        },
+        {
+          "name": "support.constant.media-feature.css.cssw",
+          "match": "\\b(min-width|max-width|width|min-height|max-height|height|orientation|aspect-ratio|resolution)\\b"
+        },
+        {
+          "include": "#numbers"
+        }
+      ]
+    },
+    "colors": {
+      "patterns": [
+        {
+          "name": "constant.other.color.rgb-value.hex.css.cssw",
+          "match": "#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})\\b"
+        },
+        {
+          "name": "constant.other.color.cssw",
+          "match": "\\b(azul|vermelho|verde|amarelo|preto|branco|cinza|rosa|roxo|laranja)\\b"
+        },
+        {
+          "name": "support.constant.color.w3c-standard-color-name.css.cssw",
+          "match": "\\b(red|green|blue|yellow|black|white|gray|grey|orange|purple|pink|brown|cyan|magenta|lime|navy|olive|teal|silver|maroon|fuchsia|aqua)\\b"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.cssw",
+          "begin": "\"",
+          "end": "\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.cssw"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.cssw"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.cssw",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.cssw",
+          "begin": "'",
+          "end": "'",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.cssw"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.cssw"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.cssw",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.css.cssw",
+          "match": "[-+]?\\d*\\.?\\d+(px|em|rem|%|vh|vw|pt|pc|in|cm|mm|ex|ch|vmin|vmax|deg|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.other.cssw",
+          "match": "\\b(principal|secundario|ativo|inativo|visivel|oculto)\\b"
+        }
+      ]
+    }
+  }
+}

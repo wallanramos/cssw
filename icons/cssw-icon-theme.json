@@ -1,0 +1,18 @@
+{
+  "iconDefinitions": {
+    "cssw": {
+      "iconPath": "../logo2.png"
+    }
+  },
+  "fileExtensions": {
+    "cssw": "cssw"
+  },
+  "file": "cssw",
+  "folder": "",
+  "folderExpanded": "",
+  "rootFolder": "",
+  "rootFolderExpanded": "",
+  "languageIds": {
+    "cssw": "cssw"
+  }
+}
